@@ -38,15 +38,12 @@
 
 #include "DHT.h"
 
-#define DHTPIN 2     // Digital pin connected to the DHT sensor
-#define DHTTYPE DHT11   // DHT 11
+#define DHTPIN 2
+#define DHTTYPE DHT11
 DHT dht(DHTPIN, DHTTYPE);
 
 int temperature = 0;
 int humidity = 0;
-
-// const char ssid[] = "Sechiane";
-// const char pass[] = "chiasenee";
 
 const char ssid[] = "Luclac";
 const char pass[] = "2233556688";
@@ -164,7 +161,6 @@ ERA_DISCONNECTED() {
 
 /* This function print uptime every second */
 void timerEvent() {
-
     humidity = dht.readHumidity();
     temperature = dht.readTemperature();
 
@@ -183,6 +179,8 @@ void timerEvent() {
 #endif
 
 void setup() {
+    dht.begin();
+
     /* Setup debug console */
 #if defined(ERA_DEBUG)
     Serial.begin(115200);
@@ -211,7 +209,6 @@ void setup() {
 
     /* Setup timer called function every second */
     ERa.addInterval(1000L, timerEvent);
-    pinMode(DHTPIN, OUTPUT);
 }
 
 void loop() {
